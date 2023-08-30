@@ -14,8 +14,7 @@ DEFINE syspw     	= &2
 
 -- se crea el usuario que manipula las tablas distribuidas
 CONNECT system/&&syspw@&&dbName
-@@create_user clieUIO clieUIO &&dbName
-@@privilegesUIO
+@@create_user clieUIO clieUIO
 
 -- cambiamos de usuario para ejecutar scripts de configuracion
 CONNECT clieUIO/clieUIO@&&dbName
@@ -25,6 +24,9 @@ CONNECT clieUIO/clieUIO@&&dbName
 
 -- se crean las tablas locales con el nuevo usuario
 @@tablesUIO
+
+-- se agregan privilegios extra
+@@privilegesUIO &&dbName &&syspw
 
 -- se crean las vistas para lograr la transparencia de localizacion
 @@viewsUIO

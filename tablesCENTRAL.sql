@@ -33,10 +33,10 @@ CREATE MATERIALIZED VIEW LOG ON facilita;
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-INSERT INTO auto (Marca,Modelo,Cilindraje,Year,Tipo) VALUES('Toyota','Hilux',2400,DATE '2007-12-19','Pick Up');
-INSERT INTO auto (Marca,Modelo,Cilindraje,Year,Tipo) VALUES('Honda','Civic',1800,DATE '2011-07-09','Sedan');
-INSERT INTO auto (Marca,Modelo,Cilindraje,Year,Tipo) VALUES('Wolkswagen','Golf',1600,DATE '1998-05-14','Hatck Back');
-INSERT INTO auto (Marca,Modelo,Cilindraje,Year,Tipo) VALUES('Hino','FC-400',3500,DATE '2018-07-25','Mula');
+INSERT INTO auto (Id_Auto, Marca,Modelo,Cilindraje,Year,Tipo) VALUES(1, 'Toyota','Hilux',2400,DATE '2007-12-19','Pick Up');
+INSERT INTO auto (Id_Auto, Marca,Modelo,Cilindraje,Year,Tipo) VALUES(2, 'Honda','Civic',1800,DATE '2011-07-09','Sedan');
+INSERT INTO auto (Id_Auto, Marca,Modelo,Cilindraje,Year,Tipo) VALUES(3, 'Wolkswagen','Golf',1600,DATE '1998-05-14','Hatck Back');
+INSERT INTO auto (Id_Auto, Marca,Modelo,Cilindraje,Year,Tipo) VALUES(4, 'Hino','FC-400',3500,DATE '2018-07-25','Mula');
 
 INSERT INTO proveedor VALUES (1721517793001,'Lubtechnology','Juan Tanga Marengo km. 1.5 via Duran',0995407655,'lubtech@lubtech.com');
 INSERT INTO proveedor VALUES (1721599993001,'Bretontech','Av. El inca OE-290 y Av. Galo Plaza Lazo',0995444655,'breton@breton.com');

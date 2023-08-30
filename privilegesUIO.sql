@@ -16,7 +16,8 @@ DEFINE syspw     	= &2
 CONNECT system/&&syspw@&&dbName
 
 -- se agregan privilegios extra
-GRANT SELECT ON proveedor, producto, producto_gye, cliente_gye, factura_gye, auto, facilita, cliente_auto, detalle_proforma, detalle_factura, proforma_gye TO clieUIO;
+GRANT SELECT ON proveedor TO clieUIO;
+GRANT SELECT ON producto TO clieUIO;
 GRANT INSERT ON proveedor, producto, producto_gye, cliente_gye, factura_gye, auto, facilita, cliente_auto, detalle_proforma, detalle_factura, proforma_gye TO clieUIO;
 GRANT UPDATE ON proveedor, producto, producto_gye, cliente_gye, factura_gye, auto, facilita, cliente_auto, detalle_proforma, detalle_factura, proforma_gye TO clieUIO;
 GRANT DELETE ON proveedor, producto, producto_gye, cliente_gye, factura_gye, auto, facilita, cliente_auto, detalle_proforma, detalle_factura, proforma_gye TO clieUIO;
