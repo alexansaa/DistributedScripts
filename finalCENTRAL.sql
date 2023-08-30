@@ -31,6 +31,7 @@ CREATE MATERIALIZED VIEW detalle_factura REFRESH FAST ON DEMAND START WITH TO_DA
 -- UNION
 SELECT * FROM detalle_factura@CENTRAL_UIO;
 
+commit;
 --
 -- END
 --
