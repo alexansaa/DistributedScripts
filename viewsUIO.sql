@@ -1,0 +1,8 @@
+-- se crean las tablas globales con los datalinks
+-- PROMPT
+-- PROMPT Indica el nombre del datalink para nodo GYE
+-- DEFINE dataLinkGYE      = &3
+-- PROMPT
+-- PROMPT Indica el nombre del datalink para nodo CENTRAL
+-- DEFINE datalinkCENTRAL  = &4
+-- @@tablesDataLinkUIO &&dataLinkGYE &&datalinkCENTRAL
