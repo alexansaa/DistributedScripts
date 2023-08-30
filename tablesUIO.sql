@@ -27,7 +27,7 @@ SELECT * FROM producto_central@UIO_CENTRAL;
 CREATE TABLE producto_uio (Id NUMBER(20,0) NOT NULL,
                             Stock NUMBER(3,0) NULL);
 ALTER TABLE producto_uio ADD CONSTRAINT producto_uio_pk PRIMARY KEY(Id);
-ALTER TABLE producto_uio ADD CONSTRAINT producto_uio_fk FOREIGN KEY (Id) REFERENCES producto (Id);
+-- ALTER TABLE producto_uio ADD CONSTRAINT producto_uio_fk FOREIGN KEY (Id) REFERENCES producto (Id);
 
 CREATE TABLE cliente_uio (Ruc_Cliente NUMBER(13,0) NOT NULL,
                             Nombre VARCHAR2(50) NOT NULL,
@@ -94,8 +94,8 @@ SELECT * FROM auto@UIO_CENTRAL;
 CREATE MATERIALIZED VIEW facilita REFRESH FAST ON DEMAND START WITH TO_DATE('27-07-2023 08:59:00','DD-MM-YYYY HH24:MI:SS') NEXT SYSDATE +1/1440 AS
 SELECT * FROM facilita@UIO_CENTRAL;
 -- ALTER TABLE facilita ADD CONSTRAINT facilita_pk PRIMARY KEY (Id);
-ALTER TABLE facilita ADD CONSTRAINT facilita_fk_prod FOREIGN KEY (Id_Producto) REFERENCES producto_uio (Id);
-ALTER TABLE facilita ADD CONSTRAINT facilita_fk_prov FOREIGN KEY (Id_Proveedor) REFERENCES proveedor (Ruc);
+-- ALTER TABLE facilita ADD CONSTRAINT facilita_fk_prod FOREIGN KEY (Id_Producto) REFERENCES producto_uio (Id);
+-- ALTER TABLE facilita ADD CONSTRAINT facilita_fk_prov FOREIGN KEY (Id_Proveedor) REFERENCES proveedor (Ruc);
 
 CREATE TABLE cliente_auto (Placa VARCHAR2(8) NOT NULL,
                             Color VARCHAR2(12),

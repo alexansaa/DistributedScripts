@@ -16,11 +16,39 @@ DEFINE syspw     	= &2
 CONNECT system/&&syspw@&&dbName
 
 -- se agregan privilegios extra
-GRANT SELECT ON proveedor TO clieUIO;
-GRANT SELECT ON producto TO clieUIO;
-GRANT INSERT ON proveedor, producto, producto_gye, cliente_gye, factura_gye, auto, facilita, cliente_auto, detalle_proforma, detalle_factura, proforma_gye TO clieUIO;
-GRANT UPDATE ON proveedor, producto, producto_gye, cliente_gye, factura_gye, auto, facilita, cliente_auto, detalle_proforma, detalle_factura, proforma_gye TO clieUIO;
-GRANT DELETE ON proveedor, producto, producto_gye, cliente_gye, factura_gye, auto, facilita, cliente_auto, detalle_proforma, detalle_factura, proforma_gye TO clieUIO;
+-- SELECT privilegios
+GRANT SELECT ON clieUIO.PROVEEDOR TO clieUIO;
+GRANT SELECT ON clieUIO.PRODUCTO TO clieUIO;
+GRANT SELECT ON clieUIO.PRODUCTO_UIO TO clieUIO;
+GRANT SELECT ON clieUIO.CLIENTE_UIO TO clieUIO;
+GRANT SELECT ON clieUIO.FACTURA_UIO TO clieUIO;
+GRANT SELECT ON clieUIO.AUTO TO clieUIO;
+GRANT SELECT ON clieUIO.FACILITA TO clieUIO;
+GRANT SELECT ON clieUIO.CLIENTE_AUTO TO clieUIO;
+GRANT SELECT ON clieUIO.DETALLE_PROFORMA TO clieUIO;
+GRANT SELECT ON clieUIO.DETALLE_FACTURA TO clieUIO;
+-- INSERT privilegios
+GRANT INSERT ON clieUIO.PROVEEDOR TO clieUIO;
+GRANT INSERT ON clieUIO.PRODUCTO TO clieUIO;
+GRANT INSERT ON clieUIO.PRODUCTO_UIO TO clieUIO;
+GRANT INSERT ON clieUIO.CLIENTE_UIO TO clieUIO;
+GRANT INSERT ON clieUIO.FACTURA_UIO TO clieUIO;
+GRANT INSERT ON clieUIO.AUTO TO clieUIO;
+GRANT INSERT ON clieUIO.FACILITA TO clieUIO;
+GRANT INSERT ON clieUIO.CLIENTE_AUTO TO clieUIO;
+GRANT INSERT ON clieUIO.DETALLE_PROFORMA TO clieUIO;
+GRANT INSERT ON clieUIO.DETALLE_FACTURA TO clieUIO;
+-- UPDATE privilegios
+GRANT UPDATE ON clieUIO.PROVEEDOR TO clieUIO;
+GRANT UPDATE ON clieUIO.PRODUCTO TO clieUIO;
+GRANT UPDATE ON clieUIO.PRODUCTO_UIO TO clieUIO;
+GRANT UPDATE ON clieUIO.CLIENTE_UIO TO clieUIO;
+GRANT UPDATE ON clieUIO.FACTURA_UIO TO clieUIO;
+GRANT UPDATE ON clieUIO.AUTO TO clieUIO;
+GRANT UPDATE ON clieUIO.FACILITA TO clieUIO;
+GRANT UPDATE ON clieUIO.CLIENTE_AUTO TO clieUIO;
+GRANT UPDATE ON clieUIO.DETALLE_PROFORMA TO clieUIO;
+GRANT UPDATE ON clieUIO.DETALLE_FACTURA TO clieUIO;
 
 PROMPT
 PROMPT Privilegios avanzados de tablas para clieUIO, agregados con exito
