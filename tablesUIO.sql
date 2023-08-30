@@ -94,8 +94,8 @@ SELECT * FROM auto@UIO_CENTRAL;
 CREATE MATERIALIZED VIEW facilita REFRESH FAST ON DEMAND START WITH TO_DATE('27-07-2023 08:59:00','DD-MM-YYYY HH24:MI:SS') NEXT SYSDATE +1/1440 AS
 SELECT * FROM facilita@UIO_CENTRAL;
 -- ALTER TABLE facilita ADD CONSTRAINT facilita_pk PRIMARY KEY (Id);
-ALTER TABLE facilita ADD CONSTRAINT facilita_fk_prod FOREIGN KEY (Id_Producto) REFERENCES producto_uio (Id);
-ALTER TABLE facilita ADD CONSTRAINT facilita_fk_prov FOREIGN KEY (Id_Proveedor) REFERENCES proveedor (Ruc);
+-- ALTER TABLE facilita ADD CONSTRAINT facilita_fk_prod FOREIGN KEY (Id_Producto) REFERENCES producto_uio (Id);
+-- ALTER TABLE facilita ADD CONSTRAINT facilita_fk_prov FOREIGN KEY (Id_Proveedor) REFERENCES proveedor (Ruc);
 
 CREATE TABLE cliente_auto (Placa VARCHAR2(8) NOT NULL,
                             Color VARCHAR2(12),
