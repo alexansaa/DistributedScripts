@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import cx_Oracle
+import clases
+import json
 
 username = 'clieUIO'
 password = 'clieUIO'
@@ -25,7 +27,7 @@ def hello_world():
 def get_table():
     # tableName tiene que ser un nombre de tabla valido
     tableName = request.args.get('tableName')
-    tableName = upper(tableName)
+    tableName = tableName.upper()
 
     if tableName is None:
         return jsonify({'error': 'Missing arguments'}), 400
@@ -35,10 +37,21 @@ def get_table():
     sqlStatement = 'SELECT * FROM ' + tableName
     print(sqlStatement)
     cursor.execute(sqlStatement)
-    # falta retornar como json
-    for row in cursor:
-        print(row)
-    return "<p>table is ok!</p>"
+
+    myAns = []
+    
+    # Convertimos en JSON
+    for reg in cursor:
+        if tableName == 'PROVEEDOR':
+            tmpObj = clases.Proveedor(reg[0], reg[1], reg[2],reg[3], reg[4])
+            #myAns.append(json.dumps(tmpObj.to_json()))
+            myAns.append(tmpObj.to_json())
+
+    print(myAns)
+
+#    for row in cursor:
+#        print(row)
+    return myAns
 
 @app.route('/create', methods=['POST'])
 def create_element():
