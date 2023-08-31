@@ -21,10 +21,50 @@ async function getTableContent(event) {
   let tableName = event.target.id
   tableName = tableName.toUpperCase();
   const requestURL = url + tableEndpoint + tableName;
-  const myTableData = await DoRequest('GET', requestURL);
+  let myTableData = await DoRequest('GET', requestURL);
+  myTableData =  myTableData.replace(/'/g, '"');
+  const myJsonData = JSON.parse(myTableData);
+  let myData = [];
+  myJsonData.forEach(element => {
+    const tmpData = JSON.parse(element);
+    myData.push(tmpData);
+  });
+  // Consturimos tabla
+  var tbl = document.createElement('table');
+  var tbdy = document.createElement('tbody');
+
+  let rowCount = 0;
+  switch(tableName){
+    case 'PROVEEDOR':
+      myData.forEach(element => {
+        rowCount += 1;
+        var tr = document.createElement('tr');
+        tr.addEventListener('click', handleRow);
+        tr.id = ('row' + rowCount.toString());
+        for (var key in element){
+          var td = document.createElement('td');
+          console.log(element[key]);
+          td.appendChild(document.createTextNode(element[key]));
+          tr.appendChild(td);
+        }
+        tbdy.appendChild(tr);
+      });
+      break;
+    case '':
+  }
+  tbl.appendChild(tbdy);
   //console.log(myTableData);
   
-  tableCnt.innerHTML = myTableData;
+  //tableCnt.innerHTML = myTableData;
+  tableCnt.appendChild(tbl);
+}
+
+function handleRow(e) {
+  let myId = e.currentTarget.id;
+  myId = myId.toString();
+  console.log(myId);
+  const myRow = document.querySelector('#' + myId);
+  console.log(myRow.id);
 }
 
 async function DoRequest(type, url, payload) {
