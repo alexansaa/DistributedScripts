@@ -1,6 +1,6 @@
 import json
 
-//Tablas CENTRAL
+#Tablas CENTRAL
 class Proveedor:
     def __init__(self, Ruc, Nombre, Direccion, Telefono, Email):
         self.Ruc = Ruc
@@ -73,7 +73,7 @@ class Autos:
             "Tipo": self.Tipo
         }
         return json.dumps(data)
-    //Tablas UIO
+#Tablas UIO
     class Cliente:
     def __init__(self, Ruc_Cliente, Nombre, Direccion, Telefono, Email, Ciudad):
         self.Ruc_Cliente = Id_Auto
