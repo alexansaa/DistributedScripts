@@ -45,7 +45,20 @@ def get_table():
         if tableName == 'PROVEEDOR':
             tmpObj = clases.Proveedor(reg[0], reg[1], reg[2],reg[3], reg[4])
             #myAns.append(json.dumps(tmpObj.to_json()))
-            myAns.append(tmpObj.to_json())
+        elif tableName == 'PRODUCTO':
+            tmpObj = clases.Producto(reg[0], reg[1], reg[2], reg[3], reg[4])
+        elif tableName == 'FRACTURA':
+            tmpObj = clases.Fractura(reg[0], reg[1], reg[2], reg[3], reg[4])
+        elif tableName == 'AUTOS':
+            tmpObj = clases.Autos(reg[0], reg[1], reg[2], reg[3], reg[4])
+        elif tableName == 'CLIENTE':
+            tmpObj = clases.Cliente(reg[0], reg[1], reg[2], reg[3], reg[4], reg[5])
+        elif tableName == 'CLIENTEAUTO':
+            tmpObj = clases.ClienteAuto(reg[0], reg[1], reg[2], reg[3])
+        elif tableName == 'DETALLEFACTURA':
+            tmpObj = clases.DetalleFactura(reg[0], reg[1], reg[2])
+
+        myAns.append(tmpObj.to_json())
 
     print(myAns)
 
