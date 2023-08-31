@@ -1,7 +1,18 @@
-url = '';
+url = 'http://127.0.0.1:5000/';
 
-function getTableContent(tableName) {
+function getTableContent(event) {
+  event.preventDefault();
+  const tableName = document.querySelector('#Proveedor').textContent;
+  console.log(tableName);
 
+  const myAns = fetch(url).then(response => {
+    //console.log(response.json());
+    return response.text();
+  }).then(data => {
+    console.log(data);
+    return data;
+    //aqui implementar respuesta correcta
+  })
 }
 
 function checkSubmit(event) {
