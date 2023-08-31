@@ -8,6 +8,21 @@ username = 'clieUIO'
 password = 'clieUIO'
 dsn = 'localhost:1521/orcl'
 
+TableIds = {
+    "PROVEEDOR": "Ruc",
+    "PRODUCTO": "Id",
+    "AUTO": "Id_Auto",
+    "FACILITA": "Id",
+    "AUTO": "Id_Auto",
+    "CLIENTE": "Ruc_Cliente",
+    "PROFORMA": "Id_Proforma",
+    "FACTURA": "Id_Factura",
+    "AUTO": "Id_Auto",
+    "CLIENTE_AUTO": "Placa",
+    "DETALLE_PROFORMA": "Id",
+    "DETALLE_FACTURA": "Id",
+}
+
 app = Flask(__name__)
 CORS(app)
 
@@ -60,52 +75,33 @@ def get_table():
 
         myAns.append(tmpObj.to_json())
 
-    print(myAns)
-
-#    for row in cursor:
-#        print(row)
     return myAns
 
-@app.route('/create', methods=['POST'])
+@app.route('/create/<string:tableName>', methods=['POST'])
 def create_element():
-    # tableName tiene que ser un nombre de tabla valido
-    data = request.get_json()
-
-    if 'tableName' not in data or 'tableKey' not in data or 'payload' == None:
-        return jsonify({'error': 'Missing arguments'}), 400
-    
-    #aqui falta implementar el metodo completo
-
-    connection = cx_Oracle.connect(username,password, dsn)
-    cursor = connection.cursor()
-    sqlStatement = 'SELECT * FROM ' + tableName
-    print(sqlStatement)
-    cursor.execute(sqlStatement)
-
-    tableName = upper(tableName)
-
     if tableName is None:
-        return jsonify({'error': 'Missing arguments'}), 400
+        return jsonify({'error': 'Missing tableName'}), 400
+
+    payload = request.get_json()
+
+    if payload is None or not payload:
+        return jsonify({'error': 'Missing payload'}), 400
 
     connection = cx_Oracle.connect(username,password, dsn)
     cursor = connection.cursor()
-    sqlStatement = 'SELECT * FROM ' + tableName
-    print(sqlStatement)
-    cursor.execute(sqlStatement)
-    # falta retornar como json
-    for row in cursor:
-        print(row)
-    return "<p>table is ok!</p>"
+    sqlStatement = 'INSERT INTO ' + tableName + ' VALUES ('
 
-#@app.route('/delete_item/<str:tableName>/<str:item_id>', methods=['DELETE'])
-#def delete_element(tableName, item_id):
-#    if tableName is None or item_id is None:
-#        return jsonify({'error': 'Missing arguments'}), 400
+    print(payload)
 
-    #implementar metodo
 
-    # tableName tiene que ser un nombre de tabla valido
-#    tableName = request.args.get('tableName')
+#    INSERT INTO employees (first_name, last_name, age, department)
+#VALUES ('John', 'Doe', 30, 'Sales');
+
+
+    
+#    print(sqlStatement)
+#    cursor.execute(sqlStatement)
+
 #    tableName = upper(tableName)
 
 #    if tableName is None:
@@ -121,25 +117,66 @@ def create_element():
 #        print(row)
 #    return "<p>table is ok!</p>"
 
-@app.route('/edit', methods=['POST'])
-def edit_element():
-    # implementar
-    # tableName tiene que ser un nombre de tabla valido
-    tableName = request.args.get('tableName')
-    tableName = upper(tableName)
-
-    if tableName is None:
+@app.route('/delete_item/<string:tableName>/<string:item_id>', methods=['DELETE'])
+def delete_element(tableName, item_id):
+    if tableName is None or item_id is None:
         return jsonify({'error': 'Missing arguments'}), 400
+
+    # tableName y item_id tienen que ser argumentos valido
+    tableName = request.args.get('tableName')
+    tableName = tableName.upper()
+
+    tmpTableId = TableIds[tableName]
+
+    conditionValue = ''
+    if isinstance(item_id, str):
+        conditionValue = " = '" + item_id + "'"
+    else:
+        conditionValue = " = " + item_id
+
+    print('condition: ' + conditionValue)    
 
     connection = cx_Oracle.connect(username,password, dsn)
     cursor = connection.cursor()
-    sqlStatement = 'SELECT * FROM ' + tableName
+    sqlStatement = 'DELETE FROM ' + tableName + ' WHERE ' + tmpTableId + conditionValue
+    print(sqlStatement)
+#    cursor.execute(sqlStatement)
+    # falta retornar como json
+#    for row in cursor:
+#        print(row)
+    return "<p>delete on table is ok!</p>"
+
+@app.route('/edit/<string:tableName>/<string:item_id>', methods=['POST'])
+def edit_element():
+    if tableName is None or item_id is None:
+        return jsonify({'error': 'Missing arguments'}), 400
+
+    tableName = request.args.get('tableName')
+    tableName = tableName.upper()
+
+    connection = cx_Oracle.connect(username,password, dsn)
+    cursor = connection.cursor()
+
+    sqlStatement = 'UPDATE ' + tableName + ' SET '
+
+    #AGREGAR VALORES DE REGISTRO
+
+    conditionValue = ''
+    if isinstance(item_id, str):
+        conditionValue = " = '" + item_id + "'"
+    else:
+        conditionValue = " = " + item_id
+
+    print('condition: ' + conditionValue)  
+
+    sqlStatement = sqlStatement + ' WHERE ' + conditionValue
+    
     print(sqlStatement)
     cursor.execute(sqlStatement)
     # falta retornar como json
-    for row in cursor:
-        print(row)
-    return "<p>table is ok!</p>"
+    #for row in cursor:
+    #    print(row)
+    #return "<p>table is ok!</p>"
 
 if __name__ == '__main__':
     app.run(debug=True)
