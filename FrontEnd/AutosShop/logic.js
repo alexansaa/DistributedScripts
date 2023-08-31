@@ -43,7 +43,6 @@ async function getTableContent(event) {
         tr.id = ('row' + rowCount.toString());
         for (var key in element){
           var td = document.createElement('td');
-          console.log(element[key]);
           td.appendChild(document.createTextNode(element[key]));
           tr.appendChild(td);
         }
@@ -62,9 +61,7 @@ async function getTableContent(event) {
 function handleRow(e) {
   let myId = e.currentTarget.id;
   myId = myId.toString();
-  console.log(myId);
   const myRow = document.querySelector('#' + myId);
-  console.log(myRow.id);
 }
 
 async function DoRequest(type, url, payload) {
