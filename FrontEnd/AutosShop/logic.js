@@ -30,38 +30,47 @@ async function getTableContent(event) {
     myData.push(tmpData);
   });
   // Consturimos tabla
-  var tbl = document.createElement('table');
-  var tbdy = document.createElement('tbody');
+  createTable(tableName, myData);
+}
+
+function createTable(tableName, data) {
+  const tbl = document.createElement('table');
+  const tbdy = document.createElement('tbody');
 
   let rowCount = 0;
-  switch(tableName){
-    case 'PROVEEDOR':
-      myData.forEach(element => {
-        rowCount += 1;
-        var tr = document.createElement('tr');
-        tr.addEventListener('click', handleRow);
-        tr.id = ('row' + rowCount.toString());
-        for (var key in element){
-          var td = document.createElement('td');
-          td.appendChild(document.createTextNode(element[key]));
-          tr.appendChild(td);
-        }
-        tbdy.appendChild(tr);
-      });
-      break;
-    case '':
-  }
+  data.forEach(element => {
+    rowCount += 1;
+    const tr = document.createElement('tr');
+    tr.id = `row${rowCount}`; // Establecemos el ID antes de agregar el evento 'click'
+
+    // Agregamos el evento 'click' directamente en la creación de la fila
+    tr.addEventListener('click', function() {
+      handleRow(tr.id); // Llamamos a handleRow con el ID de la fila
+    });
+
+
+    for (const key in element) {
+      const td = document.createElement('td');
+      td.appendChild(document.createTextNode(element[key]));
+      tr.appendChild(td);
+    }
+
+    tbdy.appendChild(tr);
+  });
+
   tbl.appendChild(tbdy);
-  //console.log(myTableData);
-  
-  //tableCnt.innerHTML = myTableData;
   tableCnt.appendChild(tbl);
 }
 
-function handleRow(e) {
-  let myId = e.currentTarget.id;
-  myId = myId.toString();
-  const myRow = document.querySelector('#' + myId);
+function handleRow(rowId) {
+  let myRow = document.querySelector('#' + rowId);
+  // Aquí puedes acceder a los elementos de la fila y hacer lo que necesites con ellos
+  const cells = myRow.getElementsByTagName('td');
+  for (let i = 0; i < cells.length; i++) {
+    const cellValue = cells[i].textContent;
+    // Haz algo con cellValue
+    console.log('Valor de la celda:', cellValue); // Imprime el valor de la celda
+  }
 }
 
 async function DoRequest(type, url, payload) {
