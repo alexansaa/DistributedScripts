@@ -2,7 +2,26 @@
 url = 'http://127.0.0.1:5000/';
 tableEndpoint = 'table?tableName=';
 
+// primary keys
+const primaryKeys = {
+  PROVEEDOR: "Ruc",
+  PRODUCTO: "Id",
+  AUTO: "Id_Auto",
+  FACILITA: "Id",
+  AUTO: "Id_Auto",
+  CLIENTE: "Ruc_Cliente",
+  PROFORMA: "Id_Proforma",
+  FACTURA: "Id_Factura",
+  AUTO: "Id_Auto",
+  CLIENTE_AUTO: "Placa",
+  DETALLE_PROFORMA: "Id",
+  DETALLE_FACTURA: "Id",
+}
+
 // elements
+const myTable = document.querySelector('#myTable');
+const myId = document.querySelector('#myId');
+const myValue = document.querySelector('#myValue');
 const tableCnt = document.querySelector('#myTableContent');
 const inputCnt = document.querySelector('#inputs');
 
@@ -33,14 +52,17 @@ BtnAceptar.addEventListener('click', handleAceptar);
 BtnCancelar.addEventListener('click', handleCancelar);
 
 
+
+
 async function getTableContent(event) {
   let tableName = event.target.id
   console.log(tableName);
 
+  tableName = tableName.toUpperCase();
+
   // Agregamos informacion de input de tabla
   createInputElmnts(tableName);
 
-  tableName = tableName.toUpperCase();
   const requestURL = url + tableEndpoint + tableName;
   let myTableData = await DoRequest('GET', requestURL);
   myTableData =  myTableData.replace(/'/g, '"');
@@ -52,6 +74,7 @@ async function getTableContent(event) {
   });
   // Consturimos tabla
   createTable(tableName, myData);
+
 }
 
 function createTable(tableName, data) {
@@ -84,9 +107,12 @@ function createTable(tableName, data) {
 }
 
 async function createInputElmnts(tableName) {
+  myTable.textContent = tableName;
+  myId.textContent = primaryKeys[tableName] + ': ';
+
   const myInputElmnt = document.createElement('iframe');
  switch(tableName) {
-  case 'Proveedor':
+  case 'PROVEDOR':
     myInputElmnt.src = 'inputProveedor.html';
     break;
   case 'Producto':
@@ -96,15 +122,19 @@ async function createInputElmnts(tableName) {
   case 'Auto':
     break;
  };
- console.log('inputing div');
+
  inputCnt.appendChild(myInputElmnt);
 
 }
 
 function handleRow(rowId) {
   let myRow = document.querySelector('#' + rowId);
-  // Aquí puedes acceder a los elementos de la fila y hacer lo que necesites con ellos
   const cells = myRow.getElementsByTagName('td');
+
+  myValue.textContent = cells[0].textContent;
+
+  // Aquí puedes acceder a los elementos de la fila y hacer lo que necesites con ellos
+  
   for (let i = 0; i < cells.length; i++) {
     const cellValue = cells[i].textContent;
     // Haz algo con cellValue
