@@ -4,6 +4,7 @@ tableEndpoint = 'table?tableName=';
 
 // elements
 const tableCnt = document.querySelector('#myTableContent');
+const inputCnt = document.querySelector('#inputs');
 
 // links
 const ProveedorLink = document.querySelector('#Proveedor');
@@ -17,9 +18,28 @@ ProductoLink.addEventListener('click', getTableContent);
 FacturaLink.addEventListener('click', getTableContent);
 AutosLink.addEventListener('click', getTableContent);
 
+// buttons on click event
+const BtnAgregar = document.querySelector('#Agregar');
+const BtnEliminar = document.querySelector('#Eliminar');
+const BtnEditar = document.querySelector('#Editar');
+const BtnAceptar = document.querySelector('#Aceptar');
+const BtnCancelar = document.querySelector('#Cancelar');
+
+// brn on click event
+BtnAgregar.addEventListener('click', handleAgregar);
+BtnEliminar.addEventListener('click', handleEliminar);
+BtnEditar.addEventListener('click', handleEditar);
+BtnAceptar.addEventListener('click', handleAceptar);
+BtnCancelar.addEventListener('click', handleCancelar);
+
+
 async function getTableContent(event) {
   let tableName = event.target.id
   console.log(tableName);
+
+  // Agregamos informacion de input de tabla
+  // createInputElmnts(tableName);
+
   tableName = tableName.toUpperCase();
   const requestURL = url + tableEndpoint + tableName;
   let myTableData = await DoRequest('GET', requestURL);
@@ -61,6 +81,23 @@ function createTable(tableName, data) {
 
   tbl.appendChild(tbdy);
   tableCnt.appendChild(tbl);
+}
+
+async function createInputElmnts(tableName) {
+  const myInputElmnt = document.createElement('iframe');
+ switch(tableName) {
+  case 'Proveedor':
+    iframe.src = 'inputProveedor.html';
+    break;
+  case 'Producto':
+    break;
+  case 'Factura_Uio':
+    break;
+  case 'Auto':
+    break;
+ };
+ inputCnt.appendChild(myInputElmnt);
+
 }
 
 function handleRow(rowId) {
@@ -119,6 +156,17 @@ async function DoPost(url, payload){
     });
 }
 
+function handleEliminar() {
+
+}
+
+function handleAceptar() {
+  console.log('aceptando');
+}
+
+function handleCancelar() {
+  console.log('cancelar');
+}
 
 
 function checkSubmit(event) {
