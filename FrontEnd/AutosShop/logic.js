@@ -38,7 +38,7 @@ async function getTableContent(event) {
   console.log(tableName);
 
   // Agregamos informacion de input de tabla
-  // createInputElmnts(tableName);
+  createInputElmnts(tableName);
 
   tableName = tableName.toUpperCase();
   const requestURL = url + tableEndpoint + tableName;
@@ -87,7 +87,7 @@ async function createInputElmnts(tableName) {
   const myInputElmnt = document.createElement('iframe');
  switch(tableName) {
   case 'Proveedor':
-    iframe.src = 'inputProveedor.html';
+    myInputElmnt.src = 'inputProveedor.html';
     break;
   case 'Producto':
     break;
@@ -96,6 +96,7 @@ async function createInputElmnts(tableName) {
   case 'Auto':
     break;
  };
+ console.log('inputing div');
  inputCnt.appendChild(myInputElmnt);
 
 }
@@ -120,7 +121,7 @@ async function DoRequest(type, url, payload) {
     const myAns = await DoGet(url);
     //console.log(myAns);
     return myAns;
-  } else if(type == 'POST' && payload ){
+  } else if(type === 'POST' && payload ){
     return DoPost(url, payload);
   } else {
     return 'error';
@@ -157,7 +158,10 @@ async function DoPost(url, payload){
 }
 
 function handleEliminar() {
-
+  tableName = 
+  itemId
+  console.log(tableName);
+  console.log(itemId);
 }
 
 function handleAceptar() {
