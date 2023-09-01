@@ -9,7 +9,7 @@ const inputCnt = document.querySelector('#inputs');
 // links
 const ProveedorLink = document.querySelector('#Proveedor');
 const ProductoLink = document.querySelector('#Producto');
-const FacturaLink = document.querySelector('#Factura_Uio');
+const FacturaLink = document.querySelector('#Factura');
 const AutosLink = document.querySelector('#Auto');
 
 // on click event
@@ -91,7 +91,7 @@ async function createInputElmnts(tableName) {
     break;
   case 'Producto':
     break;
-  case 'Factura_Uio':
+  case 'Factura':
     break;
   case 'Auto':
     break;
@@ -112,6 +112,7 @@ function handleRow(rowId) {
 }
 
 async function DoRequest(type, url, payload) {
+  console.log(url)
   if(!url){
     return 'error';
   }

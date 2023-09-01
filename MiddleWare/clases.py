@@ -48,7 +48,7 @@ class Factura:
         self.Ciudad = Ciudad
 
     def to_json(self):
-        myFecha = self.Fecha.strftime('%Y-%m-%d %H:%M:%S')
+        myFecha = self.Fecha.strftime('%Y/%m/%d')
 
         data = {
             "Id_Factura": self.Id_Factura,
