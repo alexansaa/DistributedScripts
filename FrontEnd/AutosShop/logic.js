@@ -28,7 +28,7 @@ const inputCnt = document.querySelector('#inputs');
 // links
 const ProveedorLink = document.querySelector('#Proveedor');
 const ProductoLink = document.querySelector('#Producto');
-const FacturaLink = document.querySelector('#Factura_Uio');
+const FacturaLink = document.querySelector('#Factura');
 const AutosLink = document.querySelector('#Auto');
 
 // on click event
@@ -57,12 +57,12 @@ BtnCancelar.addEventListener('click', handleCancelar);
 async function getTableContent(event) {
   let tableName = event.target.id
   console.log(tableName);
-
   tableName = tableName.toUpperCase();
 
   // Agregamos informacion de input de tabla
   createInputElmnts(tableName);
 
+  
   const requestURL = url + tableEndpoint + tableName;
   let myTableData = await DoRequest('GET', requestURL);
   myTableData =  myTableData.replace(/'/g, '"');
@@ -112,14 +112,17 @@ async function createInputElmnts(tableName) {
 
   const myInputElmnt = document.createElement('iframe');
  switch(tableName) {
-  case 'PROVEDOR':
+  case 'PROVEEDOR':
     myInputElmnt.src = 'inputProveedor.html';
     break;
-  case 'Producto':
+  case 'PRODUCTO':
+    myInputElmnt.src = 'inputProducto.html';
     break;
-  case 'Factura_Uio':
+  case 'FACTURA':
+    myInputElmnt.src = 'inputFactura.html';
     break;
-  case 'Auto':
+  case 'AUTO':
+    myInputElmnt.src = 'inputAuto.html';
     break;
  };
 
@@ -143,6 +146,7 @@ function handleRow(rowId) {
 }
 
 async function DoRequest(type, url, payload) {
+  console.log(url)
   if(!url){
     return 'error';
   }
