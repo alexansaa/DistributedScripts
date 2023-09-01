@@ -8,8 +8,8 @@ const tableCnt = document.querySelector('#myTableContent');
 // links
 const ProveedorLink = document.querySelector('#Proveedor');
 const ProductoLink = document.querySelector('#Producto');
-const FacturaLink = document.querySelector('#Factura');
-const AutosLink = document.querySelector('#Autos');
+const FacturaLink = document.querySelector('#Factura_Uio');
+const AutosLink = document.querySelector('#Auto');
 
 // on click event
 ProveedorLink.addEventListener('click', getTableContent);
@@ -19,6 +19,7 @@ AutosLink.addEventListener('click', getTableContent);
 
 async function getTableContent(event) {
   let tableName = event.target.id
+  console.log(tableName);
   tableName = tableName.toUpperCase();
   const requestURL = url + tableEndpoint + tableName;
   let myTableData = await DoRequest('GET', requestURL);

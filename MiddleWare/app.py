@@ -62,10 +62,10 @@ def get_table():
             #myAns.append(json.dumps(tmpObj.to_json()))
         elif tableName == 'PRODUCTO':
             tmpObj = clases.Producto(reg[0], reg[1], reg[2], reg[3], reg[4])
-        elif tableName == 'FACTURA':
+        elif tableName == 'FACTURA_UIO':
             tmpObj = clases.Factura(reg[0], reg[1], reg[2], reg[3], reg[4])
-        elif tableName == 'AUTOS':
-            tmpObj = clases.Autos(reg[0], reg[1], reg[2], reg[3], reg[4])
+        elif tableName == 'AUTO':
+            tmpObj = clases.Autos(reg[0], reg[1], reg[2], reg[3], reg[4], reg[5])
         elif tableName == 'CLIENTE':
             tmpObj = clases.Cliente(reg[0], reg[1], reg[2], reg[3], reg[4], reg[5])
         elif tableName == 'CLIENTEAUTO':

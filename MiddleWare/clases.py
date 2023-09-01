@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 #Tablas CENTRAL
 class Proveedor:
@@ -47,29 +48,35 @@ class Factura:
         self.Ciudad = Ciudad
 
     def to_json(self):
+        myFecha = self.Fecha.strftime('%Y-%m-%d %H:%M:%S')
+
         data = {
             "Id_Factura": self.Id_Factura,
             "Id_Proforma": self.Id_Proforma,
-            "Fecha": self.Fecha,
+            "Fecha": myFecha,
             "Total": self.Total,
             "Ciudad": self.Ciudad
         }
         return json.dumps(data)
 
 class Autos:
-    def __init__(self, Id_Auto, Marca, Modelo, Cilindraje, Tipo):
+    def __init__(self, Id_Auto, Marca, Modelo, Cilindraje, Year, Tipo):
         self.Id_Auto = Id_Auto
         self.Marca = Marca
         self.Modelo = Modelo
         self.Cilindraje = Cilindraje
+        self.Year = Year
         self.Tipo = Tipo
 
     def to_json(self):
+        myFecha = self.Year.strftime('%Y-%m-%d %H:%M:%S')
+
         data = {
             "Id_Auto": self.Id_Auto,
             "Marca": self.Marca,
             "Modelo": self.Modelo,
             "Cilindraje": self.Cilindraje,
+            "Year": myFecha,
             "Tipo": self.Tipo
         }
         return json.dumps(data)
@@ -103,11 +110,13 @@ class Proforma:
         self.Ciudad = Ciudad
 
     def to_json(self):
+        myFecha = self.Fecha.strftime('%Y-%m-%d %H:%M:%S')
+
         data = {
             "Id_Proforma": self.Id_Proforma,
             "Ruc_Cliente": self.Ruc_Cliente,
             "Placa": self.Placa,
-            "Fecha": self.Fecha,
+            "Fecha": myFecha,
             "Total": self.Total,
             "Ciudad": self.Ciudad
         }
