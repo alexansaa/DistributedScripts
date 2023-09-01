@@ -124,6 +124,12 @@ async function createInputElmnts(tableName) {
   case 'AUTO':
     myInputElmnt.src = 'inputAuto.html';
     break;
+  case 'CLIENTE':
+    myInputElmnt.src = 'inputCliente.html';
+    break;
+  case 'PROFORMA':
+      myInputElmnt.src = 'inputProforma.html';
+      break;
  };
 
  inputCnt.appendChild(myInputElmnt);
