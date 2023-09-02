@@ -187,7 +187,7 @@ function handleRow(rowId) {
       document.querySelector('#id_proforma').value = cells[1].textContent;
       document.querySelector('#fecha').value = cells[2].textContent;
       document.querySelector('#total').value = cells[3].textContent;
-      document.querySelector('#ciudad').value = cells[4].textContent;
+      document.querySelector('#ciudadFactura').value = cells[4].textContent;
       break;
     case 'AUTO':
       document.querySelector('#id_auto').value = cells[0].textContent;
@@ -256,7 +256,7 @@ async function DoPost(url, payload){
     });
 }
 
-async function handleEliminar() {
+async function handleEliminar() { 
   const MyTableName = myTable.textContent;
   // const MyPrimaryKey = myId.textContent;
   const MyItemId = myValue.textContent;
@@ -269,7 +269,38 @@ async function handleEliminar() {
 }
 
 function handleAceptar() {
-  console.log('aceptando');
+  const myUpdateData = {}
+  switch(myTable.textContent) {
+    case 'PROVEEDOR':
+      myUpdateData.ruc = document.querySelector('#ruc').value = cells[0].textContent;
+      myUpdateData.nombre = document.querySelector('#nombre').value = cells[1].textContent;
+      myUpdateData.direccion = document.querySelector('#direccion').value = cells[2].textContent;
+      myUpdateData.telefono = document.querySelector('#telefono').value = cells[3].textContent;
+      myUpdateData.email = document.querySelector('#email').value = cells[4].textContent;
+      break;
+    case 'PRODUCTO':
+      document.querySelector('#id').value = cells[0].textContent;
+      document.querySelector('#costo').value = cells[1].textContent;
+      document.querySelector('#descripcion').value = cells[2].textContent;
+      document.querySelector('#marcaProd').value = cells[3].textContent;
+      document.querySelector('#modeloProd').value = cells[4].textContent;
+      break;
+    case 'FACTURA':
+      document.querySelector('#factura').value = cells[0].textContent;
+      document.querySelector('#id_proforma').value = cells[1].textContent;
+      document.querySelector('#fecha').value = cells[2].textContent;
+      document.querySelector('#total').value = cells[3].textContent;
+      document.querySelector('#ciudad').value = cells[4].textContent;
+      break;
+    case 'AUTO':
+      document.querySelector('#id_auto').value = cells[0].textContent;
+      document.querySelector('#marcaAuto').value = cells[1].textContent;
+      document.querySelector('#modeloAuto').value = cells[2].textContent;
+      document.querySelector('#cilindraje').value = cells[3].textContent;
+      document.querySelector('#yearAuto').value = cells[4].textContent;
+      document.querySelector('#tipoAuto').value = cells[5].textContent;
+      break;
+   };
 }
 
 function handleCancelar() {
