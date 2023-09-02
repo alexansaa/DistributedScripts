@@ -44,27 +44,15 @@ const BtnEditar = document.querySelector('#Editar');
 const BtnAceptar = document.querySelector('#Aceptar');
 const BtnCancelar = document.querySelector('#Cancelar');
 
-// btn on click event
-//BtnAgregar.addEventListener('click', handleAgregar);
+// brn on click event
+BtnAgregar.addEventListener('click', handleAgregar);
 BtnEliminar.addEventListener('click', handleEliminar);
-//BtnEditar.addEventListener('click', handleEditar);
+BtnEditar.addEventListener('click', handleEditar);
 BtnAceptar.addEventListener('click', handleAceptar);
 BtnCancelar.addEventListener('click', handleCancelar);
 
-// input elements
-const ProveedorInput = document.querySelector('#proveedorInput');
-const AutoInput = document.querySelector('#autoInput');
-const ClienteInput = document.querySelector('#clienteInput');
-const FacturaInput = document.querySelector('#facturaInput');
-const ProductoInput = document.querySelector('#productoInput');
-const ProformaInput = document.querySelector('#proformaInput');
 
-ProveedorInput.style.display = 'none';
-AutoInput.style.display = 'none';
-ClienteInput.style.display = 'none';
-FacturaInput.style.display = 'none';
-ProductoInput.style.display = 'none';
-ProformaInput.style.display = 'none';
+
 
 async function getTableContent(event) {
   let tableName = event.target.id
@@ -73,6 +61,7 @@ async function getTableContent(event) {
 
   // Agregamos informacion de input de tabla
   createInputElmnts(tableName);
+
   
   const requestURL = url + tableEndpoint + tableName;
   let myTableData = await DoRequest('GET', requestURL);
@@ -114,7 +103,6 @@ function createTable(tableName, data) {
   });
 
   tbl.appendChild(tbdy);
-  tableCnt.innerHTML = '';
   tableCnt.appendChild(tbl);
 }
 
@@ -122,40 +110,30 @@ async function createInputElmnts(tableName) {
   myTable.textContent = tableName;
   myId.textContent = primaryKeys[tableName] + ': ';
 
+  const myInputElmnt = document.createElement('iframe');
  switch(tableName) {
   case 'PROVEEDOR':
-    ProveedorInput.style.display = 'block';
-    AutoInput.style.display = 'none';
-    ClienteInput.style.display = 'none';
-    FacturaInput.style.display = 'none';
-    ProductoInput.style.display = 'none';
-    ProformaInput.style.display = 'none';
+    myInputElmnt.src = 'inputProveedor.html';
     break;
   case 'PRODUCTO':
-    ProveedorInput.style.display = 'none';
-    AutoInput.style.display = 'none';
-    ClienteInput.style.display = 'none';
-    FacturaInput.style.display = 'none';
-    ProductoInput.style.display = 'block';
-    ProformaInput.style.display = 'none';
+    myInputElmnt.src = 'inputProducto.html';
     break;
   case 'FACTURA':
-    ProveedorInput.style.display = 'none';
-    AutoInput.style.display = 'none';
-    ClienteInput.style.display = 'none';
-    FacturaInput.style.display = 'block';
-    ProductoInput.style.display = 'none';
-    ProformaInput.style.display = 'none';
+    myInputElmnt.src = 'inputFactura.html';
     break;
   case 'AUTO':
-    ProveedorInput.style.display = 'none';
-    AutoInput.style.display = 'block';
-    ClienteInput.style.display = 'none';
-    FacturaInput.style.display = 'none';
-    ProductoInput.style.display = 'none';
-    ProformaInput.style.display = 'none';
+    myInputElmnt.src = 'inputAuto.html';
     break;
+  case 'CLIENTE':
+    myInputElmnt.src = 'inputCliente.html';
+    break;
+  case 'PROFORMA':
+      myInputElmnt.src = 'inputProforma.html';
+      break;
  };
+
+ inputCnt.appendChild(myInputElmnt);
+
 }
 
 function handleRow(rowId) {
@@ -163,43 +141,6 @@ function handleRow(rowId) {
   const cells = myRow.getElementsByTagName('td');
 
   myValue.textContent = cells[0].textContent;
-
-  switch(tableName) {
-    case 'PROVEEDOR':
-      ProveedorInput.style.display = 'block';
-      AutoInput.style.display = 'none';
-      ClienteInput.style.display = 'none';
-      FacturaInput.style.display = 'none';
-      ProductoInput.style.display = 'none';
-      ProformaInput.style.display = 'none';
-      break;
-    case 'PRODUCTO':
-      ProveedorInput.style.display = 'none';
-      AutoInput.style.display = 'none';
-      ClienteInput.style.display = 'none';
-      FacturaInput.style.display = 'none';
-      ProductoInput.style.display = 'block';
-      ProformaInput.style.display = 'none';
-      break;
-    case 'FACTURA':
-      ProveedorInput.style.display = 'none';
-      AutoInput.style.display = 'none';
-      ClienteInput.style.display = 'none';
-      FacturaInput.style.display = 'block';
-      ProductoInput.style.display = 'none';
-      ProformaInput.style.display = 'none';
-      break;
-    case 'AUTO':
-      ProveedorInput.style.display = 'none';
-      AutoInput.style.display = 'block';
-      ClienteInput.style.display = 'none';
-      FacturaInput.style.display = 'none';
-      ProductoInput.style.display = 'none';
-      ProformaInput.style.display = 'none';
-      break;
-   };
-
-
 
   // Aquí puedes acceder a los elementos de la fila y hacer lo que necesites con ellos
   
