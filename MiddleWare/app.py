@@ -79,7 +79,7 @@ def get_table():
     return myAns
 
 @app.route('/create/<string:tableName>', methods=['POST'])
-def create_element():
+def create_element(tableName):
     if tableName is None:
         return jsonify({'error': 'Missing tableName'}), 400
 
@@ -89,27 +89,37 @@ def create_element():
         return jsonify({'error': 'Missing payload'}), 400
 
     print(payload)
-
     sqlStatement = 'INSERT INTO ' + tableName + ' VALUES ('
 
-    for key, value in payload:
+    for key, value in payload.items():
         print(key + " " + value)
-        try:
-            c = int(item_id)
-        except ValueError:
-            c = "'" + item_id + "'"
+        if key == 'yearAuto':
+            try:
+                # Parse the date string and reformat it
+                date_obj = datetime.strptime(value, '%Y-%m-%d')
+                c = date_obj.strftime('%Y-%m-%d')
+                c = "DATE '" + c + "'"
+            except ValueError:
+                return jsonify({'error': 'Invalid date format'}), 400
+        else:
+            try:
+                c  = int(value)
+            except ValueError:
+                c = "'" + value + "'"
 
-        sqlStatement = sqlStatement + c
-        
+        sqlStatement = sqlStatement  + str(c) + ","
+
+    sqlStatement = sqlStatement[:-1]  
     sqlStatement = sqlStatement + ')'
+
+    print(sqlStatement)
 
     connection = cx_Oracle.connect(username,password, dsn)
     cursor = connection.cursor()
     cursor.execute(sqlStatement)
-    cursor.commit()
+    connection.commit()
     cursor.close()
-
-    return "<p>table is ok!</p>"
+    return {"Mensaje":"Elemento Creado"}
 
 @app.route('/delete_item', methods=['GET'])
 def delete_element():
@@ -141,37 +151,56 @@ def delete_element():
     return "<p>delete on table is ok!</p>"
 
 @app.route('/edit/<string:tableName>/<string:item_id>', methods=['POST'])
-def edit_element():
+def edit_element(tableName,item_id):
     if tableName is None or item_id is None:
         return jsonify({'error': 'Missing arguments'}), 400
 
-    tableName = request.args.get('tableName')
-    tableName = tableName.upper()
+    payload = request.get_json()
+
+    if payload is None or not payload:
+        return jsonify({'error': 'Missing payload'}), 400
+
+    print(payload)
+
+    sqlStatement = 'UPDATE ' + tableName + ' SET '
+
+    for key, value in payload.items():
+        print(key + " " + value)
+        if key == 'yearAuto':
+            try:
+                # Parse the date string and reformat it
+                date_obj = datetime.strptime(value, '%Y-%m-%d')
+                c = date_obj.strftime('%Y-%m-%d')
+                c = "DATE '" + c + "'"
+            except ValueError:
+                return jsonify({'error': 'Invalid date format'}), 400
+        else:
+            try:
+                c  = int(value)
+            except ValueError:
+                c = "'" + value + "'"
+
+        sqlStatement = sqlStatement  + str(c) + ","
+
+    sqlStatement = sqlStatement[:-1]  
+    sqlStatement = sqlStatement + ' WHERE ' + TableIds[tableName] + ' = '
+    
+    try:
+        c = int(item_id)
+    except ValueError
+        c = "'" + item_id + "'"
+    
+    sqlStatement = sqlStatement + item_id
+
+    print(sqlStatement)
 
     connection = cx_Oracle.connect(username,password, dsn)
     cursor = connection.cursor()
 
-    sqlStatement = 'UPDATE ' + tableName + ' SET '
-
-    #AGREGAR VALORES DE REGISTRO
-
-    conditionValue = ''
-    if isinstance(item_id, str):
-        conditionValue = " = '" + item_id + "'"
-    else:
-        conditionValue = " = " + item_id
-
-    print('condition: ' + conditionValue)  
-
-    sqlStatement = sqlStatement + ' WHERE ' + conditionValue
-    
-    print(sqlStatement)
     cursor.execute(sqlStatement)
+    connection.commit()
     cursor.close()
-    # falta retornar como json
-    #for row in cursor:
-    #    print(row)
-    return "<p>table is ok!</p>"
+    return {"Mensaje":"Elemento Modificado"}
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -3,6 +3,8 @@ url = 'http://127.0.0.1:5000/';
 tableEndpoint = 'table?tableName=';
 deleteEndpoint = 'delete_item?tableName=';
 createEndpoint = 'create/';
+updateEndpoint = 'edit/';
+
 // primary keys
 const primaryKeys = {
   PROVEEDOR: "Ruc",
@@ -48,10 +50,10 @@ const BtnAceptar = document.querySelector('#Aceptar');
 const BtnCancelar = document.querySelector('#Cancelar');
 
 // btn on click event
-//BtnAgregar.addEventListener('click', handleAgregar);
+BtnAgregar.addEventListener('click', handleAgregar);
 BtnEliminar.addEventListener('click', handleEliminar);
-//BtnEditar.addEventListener('click', handleEditar);
-BtnAceptar.addEventListener('click', handleAceptar);
+BtnEditar.addEventListener('click', handleEditar);
+//BtnAceptar.addEventListener('click', handleAceptar);
 BtnCancelar.addEventListener('click', handleCancelar);
 
 // input elements
@@ -269,7 +271,47 @@ async function handleEliminar() {
   console.log(myAns);
 }
 
-function handleAceptar() {
+function handleEditar() {
+  const myUpdateData = {}
+  switch(myTable.textContent) {
+    case 'PROVEEDOR':
+      myUpdateData.Ruc = document.querySelector('#ruc').value;
+      myUpdateData.Nombre = document.querySelector('#nombre').value;
+      myUpdateData.Direccion = document.querySelector('#direccion').value;
+      myUpdateData.Telefono = document.querySelector('#telefono').value;
+      myUpdateData.Email = document.querySelector('#email').value;
+      break;
+    case 'PRODUCTO':
+      myUpdateData.Id = document.querySelector('#id').value;
+      myUpdateData.Costo = document.querySelector('#costo').value;
+      myUpdateData.Descripcion = document.querySelector('#descripcion').value;
+      myUpdateData.Marca = document.querySelector('#marcaProd').value;
+      myUpdateData.Modelo = document.querySelector('#modeloProd').value;
+      break;
+    case 'FACTURA':
+      myUpdateData.Id_Factura = document.querySelector('#factura').value;
+      myUpdateData.Id_Proforma = document.querySelector('#id_proforma').value;
+      myUpdateData.Fecha = document.querySelector('#fecha').value;
+      myUpdateData.Total = document.querySelector('#total').value;
+      myUpdateData.Ciudad = document.querySelector('#ciudad').value;
+      break;
+    case 'AUTO':
+      myUpdateData.Id_Auto = document.querySelector('#id_auto').value;
+      myUpdateData.Marca = document.querySelector('#marcaAuto').value;
+      myUpdateData.Modelo = document.querySelector('#modeloAuto').value;
+      myUpdateData.Cilindraje = document.querySelector('#cilindraje').value;
+      myUpdateData.Year = document.querySelector('#yearAuto').value;
+      myUpdateData.Tipo = document.querySelector('#tipoAuto').value;
+      break;
+  };
+
+  const myUrl = url + updateEndpoint + myTable.textContent
+  console.log(myUrl);
+  const MyAns = DoRequest('POST', myUrl, myUpdateData);
+  console.log(MyAns);
+}
+
+function handleAgregar() {
   const myUpdateData = {}
   switch(myTable.textContent) {
     case 'PROVEEDOR':
@@ -303,10 +345,10 @@ function handleAceptar() {
       break;
   };
 
-  const myUrl = url + createEndpoint + myTable.textContent
+  const myUrl = url + createEndpoint + myTable.textContent + '/' + myValue.textContent
   console.log(myUrl);
   const MyAns = DoRequest('POST', myUrl, myUpdateData);
-  console.log(myAns);
+  console.log(MyAns);
 
 }
 
