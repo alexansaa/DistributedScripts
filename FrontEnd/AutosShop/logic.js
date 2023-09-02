@@ -270,39 +270,36 @@ async function handleEliminar() {
 }
 
 function handleAceptar() {
-  let myRow = document.querySelector('#' + myValue.textContent);
-  const cells = myRow.getElementsByTagName('td');
-
   const myUpdateData = {}
   switch(myTable.textContent) {
     case 'PROVEEDOR':
-      myUpdateData.ruc = document.querySelector('#ruc').value = cells[0].textContent;
-      myUpdateData.nombre = document.querySelector('#nombre').value = cells[1].textContent;
-      myUpdateData.direccion = document.querySelector('#direccion').value = cells[2].textContent;
-      myUpdateData.telefono = document.querySelector('#telefono').value = cells[3].textContent;
-      myUpdateData.email = document.querySelector('#email').value = cells[4].textContent;
+      myUpdateData.ruc = document.querySelector('#ruc').value;
+      myUpdateData.nombre = document.querySelector('#nombre').value;
+      myUpdateData.direccion = document.querySelector('#direccion').value;
+      myUpdateData.telefono = document.querySelector('#telefono').value;
+      myUpdateData.email = document.querySelector('#email').value;
       break;
     case 'PRODUCTO':
-      myUpdateData.id = document.querySelector('#id').value = cells[0].textContent;
-      myUpdateData.costo = document.querySelector('#costo').value = cells[1].textContent;
-      myUpdateData.descripcion = document.querySelector('#descripcion').value = cells[2].textContent;
-      myUpdateData.marcaProd = document.querySelector('#marcaProd').value = cells[3].textContent;
-      myUpdateData.modeloProd = document.querySelector('#modeloProd').value = cells[4].textContent;
+      myUpdateData.id = document.querySelector('#id').value;
+      myUpdateData.costo = document.querySelector('#costo').value;
+      myUpdateData.descripcion = document.querySelector('#descripcion').value;
+      myUpdateData.marcaProd = document.querySelector('#marcaProd').value;
+      myUpdateData.modeloProd = document.querySelector('#modeloProd').value;
       break;
     case 'FACTURA':
-      myUpdateData.factura = document.querySelector('#factura').value = cells[0].textContent;
-      myUpdateData.id_proforma = document.querySelector('#id_proforma').value = cells[1].textContent;
-      myUpdateData.fecha = document.querySelector('#fecha').value = cells[2].textContent;
-      myUpdateData.total = document.querySelector('#total').value = cells[3].textContent;
-      myUpdateData.ciudad = document.querySelector('#ciudad').value = cells[4].textContent;
+      myUpdateData.factura = document.querySelector('#factura').value;
+      myUpdateData.id_proforma = document.querySelector('#id_proforma').value;
+      myUpdateData.fecha = document.querySelector('#fecha').value;
+      myUpdateData.total = document.querySelector('#total').value;
+      myUpdateData.ciudad = document.querySelector('#ciudad').value;
       break;
     case 'AUTO':
-      myUpdateData.id_auto = document.querySelector('#id_auto').value = cells[0].textContent;
-      myUpdateData.marcaAuto = document.querySelector('#marcaAuto').value = cells[1].textContent;
-      myUpdateData.modeloAuto = document.querySelector('#modeloAuto').value = cells[2].textContent;
-      myUpdateData.cilindraje = document.querySelector('#cilindraje').value = cells[3].textContent;
-      myUpdateData.yearAuto = document.querySelector('#yearAuto').value = cells[4].textContent;
-      myUpdateData.tipoAuto = document.querySelector('#tipoAuto').value = cells[5].textContent;
+      myUpdateData.id_auto = document.querySelector('#id_auto').value;
+      myUpdateData.marcaAuto = document.querySelector('#marcaAuto').value;
+      myUpdateData.modeloAuto = document.querySelector('#modeloAuto').value;
+      myUpdateData.cilindraje = document.querySelector('#cilindraje').value;
+      myUpdateData.yearAuto = document.querySelector('#yearAuto').value;
+      myUpdateData.tipoAuto = document.querySelector('#tipoAuto').value;
       break;
   };
 
