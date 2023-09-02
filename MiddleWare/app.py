@@ -75,6 +75,7 @@ def get_table():
 
         myAns.append(tmpObj.to_json())
 
+    cursor.close()
     return myAns
 
 @app.route('/create/<string:tableName>', methods=['POST'])
@@ -87,35 +88,28 @@ def create_element():
     if payload is None or not payload:
         return jsonify({'error': 'Missing payload'}), 400
 
-    connection = cx_Oracle.connect(username,password, dsn)
-    cursor = connection.cursor()
-    sqlStatement = 'INSERT INTO ' + tableName + ' VALUES ('
-
     print(payload)
 
+    sqlStatement = 'INSERT INTO ' + tableName + ' VALUES ('
 
-#    INSERT INTO employees (first_name, last_name, age, department)
-#VALUES ('John', 'Doe', 30, 'Sales');
+    for key, value in payload:
+        print(key + " " + value)
+        try:
+            c = int(item_id)
+        except ValueError:
+            c = "'" + item_id + "'"
 
+        sqlStatement = sqlStatement + c
+        
+    sqlStatement = sqlStatement + ')'
 
-    
-#    print(sqlStatement)
-#    cursor.execute(sqlStatement)
+    connection = cx_Oracle.connect(username,password, dsn)
+    cursor = connection.cursor()
+    cursor.execute(sqlStatement)
+    cursor.commit()
+    cursor.close()
 
-#    tableName = upper(tableName)
-
-#    if tableName is None:
-#        return jsonify({'error': 'Missing arguments'}), 400
-
-#    connection = cx_Oracle.connect(username,password, dsn)
-#    cursor = connection.cursor()
-#    sqlStatement = 'SELECT * FROM ' + tableName
-#    print(sqlStatement)
-#    cursor.execute(sqlStatement)
-    # falta retornar como json
-#    for row in cursor:
-#        print(row)
-#    return "<p>table is ok!</p>"
+    return "<p>table is ok!</p>"
 
 @app.route('/delete_item', methods=['GET'])
 def delete_element():
@@ -142,8 +136,8 @@ def delete_element():
     print(sqlStatement)
     cursor.execute(sqlStatement)
     connection.commit()
-    print("Deleted")
-    
+    cursor.close()
+
     return "<p>delete on table is ok!</p>"
 
 @app.route('/edit/<string:tableName>/<string:item_id>', methods=['POST'])
@@ -173,10 +167,11 @@ def edit_element():
     
     print(sqlStatement)
     cursor.execute(sqlStatement)
+    cursor.close()
     # falta retornar como json
     #for row in cursor:
     #    print(row)
-    #return "<p>table is ok!</p>"
+    return "<p>table is ok!</p>"
 
 if __name__ == '__main__':
     app.run(debug=True)

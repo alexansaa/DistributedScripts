@@ -270,6 +270,9 @@ async function handleEliminar() {
 }
 
 function handleAceptar() {
+  let myRow = document.querySelector('#' + myValue.textContent);
+  const cells = myRow.getElementsByTagName('td');
+
   const myUpdateData = {}
   switch(myTable.textContent) {
     case 'PROVEEDOR':
