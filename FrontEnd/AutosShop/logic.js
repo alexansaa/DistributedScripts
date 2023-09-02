@@ -305,7 +305,7 @@ function handleEditar() {
       break;
   };
 
-  const myUrl = url + createEndpoint + myTable.textContent + '/' + myValue.textContent
+  const myUrl = url + updateEndpoint + myTable.textContent + '/' + myValue.textContent
   console.log(myUrl);
   const MyAns = DoRequest('POST', myUrl, myUpdateData);
   console.log(MyAns);
@@ -345,7 +345,7 @@ function handleAgregar() {
       break;
   };
 
-  const myUrl = url + updateEndpoint + myTable.textContent
+  const myUrl = url + createEndpoint + myTable.textContent
   console.log(myUrl);
   const MyAns = DoRequest('POST', myUrl, myUpdateData);
   console.log(MyAns);

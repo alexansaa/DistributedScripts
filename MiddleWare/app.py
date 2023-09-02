@@ -166,7 +166,7 @@ def edit_element(tableName,item_id):
 
     for key, value in payload.items():
         print(key + " " + value)
-        if key == 'yearAuto':
+        if key == 'yearAuto' or key == 'Year':
             try:
                 # Parse the date string and reformat it
                 date_obj = datetime.strptime(value, '%Y-%m-%d')
@@ -180,7 +180,7 @@ def edit_element(tableName,item_id):
             except ValueError:
                 c = "'" + value + "'"
 
-        sqlStatement = sqlStatement  + str(c) + ","
+        sqlStatement = sqlStatement + " " + key + " = " + str(c) + ","
 
     sqlStatement = sqlStatement[:-1]  
     sqlStatement = sqlStatement + ' WHERE ' + TableIds[tableName] + ' = '
