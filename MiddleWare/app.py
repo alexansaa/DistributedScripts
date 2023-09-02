@@ -187,7 +187,7 @@ def edit_element(tableName,item_id):
     
     try:
         c = int(item_id)
-    except ValueError
+    except ValueError:
         c = "'" + item_id + "'"
     
     sqlStatement = sqlStatement + item_id
