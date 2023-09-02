@@ -125,24 +125,25 @@ def delete_element():
     if tableName is None or item_id is None:
         return jsonify({'error': 'Missing arguments'}), 400
 
-    # tableName y item_id tienen que ser argumentos valido
     tableName = request.args.get('tableName')
     tableName = tableName.upper()
-
     tmpTableId = TableIds[tableName]
-
-    conditionValue = ''
-    if isinstance(item_id, str):
-        conditionValue = " = '" + item_id + "'"
-    else:
-        conditionValue = " = " + item_id 
+    conditionValue = ' = '
+    try:
+        c = int(item_id)
+        conditionValue = conditionValue + str(c)
+    except ValueError:
+        c = "'" + item_id + "'"
+        conditionValue = ' = ' + c
 
     connection = cx_Oracle.connect(username,password, dsn)
     cursor = connection.cursor()
     sqlStatement = 'DELETE FROM ' + tableName + ' WHERE ' + tmpTableId + conditionValue
     print(sqlStatement)
     cursor.execute(sqlStatement)
-
+    connection.commit()
+    print("Deleted")
+    
     return "<p>delete on table is ok!</p>"
 
 @app.route('/edit/<string:tableName>/<string:item_id>', methods=['POST'])

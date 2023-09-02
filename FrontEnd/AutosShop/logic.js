@@ -2,6 +2,7 @@
 url = 'http://127.0.0.1:5000/';
 tableEndpoint = 'table?tableName=';
 deleteEndpoint = 'delete_item?tableName=';
+createEndpoint = 'create/';
 // primary keys
 const primaryKeys = {
   PROVEEDOR: "Ruc",
@@ -279,28 +280,34 @@ function handleAceptar() {
       myUpdateData.email = document.querySelector('#email').value = cells[4].textContent;
       break;
     case 'PRODUCTO':
-      document.querySelector('#id').value = cells[0].textContent;
-      document.querySelector('#costo').value = cells[1].textContent;
-      document.querySelector('#descripcion').value = cells[2].textContent;
-      document.querySelector('#marcaProd').value = cells[3].textContent;
-      document.querySelector('#modeloProd').value = cells[4].textContent;
+      myUpdateData.id = document.querySelector('#id').value = cells[0].textContent;
+      myUpdateData.costo = document.querySelector('#costo').value = cells[1].textContent;
+      myUpdateData.descripcion = document.querySelector('#descripcion').value = cells[2].textContent;
+      myUpdateData.marcaProd = document.querySelector('#marcaProd').value = cells[3].textContent;
+      myUpdateData.modeloProd = document.querySelector('#modeloProd').value = cells[4].textContent;
       break;
     case 'FACTURA':
-      document.querySelector('#factura').value = cells[0].textContent;
-      document.querySelector('#id_proforma').value = cells[1].textContent;
-      document.querySelector('#fecha').value = cells[2].textContent;
-      document.querySelector('#total').value = cells[3].textContent;
-      document.querySelector('#ciudad').value = cells[4].textContent;
+      myUpdateData.factura = document.querySelector('#factura').value = cells[0].textContent;
+      myUpdateData.id_proforma = document.querySelector('#id_proforma').value = cells[1].textContent;
+      myUpdateData.fecha = document.querySelector('#fecha').value = cells[2].textContent;
+      myUpdateData.total = document.querySelector('#total').value = cells[3].textContent;
+      myUpdateData.ciudad = document.querySelector('#ciudad').value = cells[4].textContent;
       break;
     case 'AUTO':
-      document.querySelector('#id_auto').value = cells[0].textContent;
-      document.querySelector('#marcaAuto').value = cells[1].textContent;
-      document.querySelector('#modeloAuto').value = cells[2].textContent;
-      document.querySelector('#cilindraje').value = cells[3].textContent;
-      document.querySelector('#yearAuto').value = cells[4].textContent;
-      document.querySelector('#tipoAuto').value = cells[5].textContent;
+      myUpdateData.id_auto = document.querySelector('#id_auto').value = cells[0].textContent;
+      myUpdateData.marcaAuto = document.querySelector('#marcaAuto').value = cells[1].textContent;
+      myUpdateData.modeloAuto = document.querySelector('#modeloAuto').value = cells[2].textContent;
+      myUpdateData.cilindraje = document.querySelector('#cilindraje').value = cells[3].textContent;
+      myUpdateData.yearAuto = document.querySelector('#yearAuto').value = cells[4].textContent;
+      myUpdateData.tipoAuto = document.querySelector('#tipoAuto').value = cells[5].textContent;
       break;
-   };
+  };
+
+  const myUrl = url + createEndpoint + myTable.textContent
+  console.log(myUrl);
+  const MyAns = DoRequest('POST', myUrl, myUpdateData);
+  console.log(myAns);
+
 }
 
 function handleCancelar() {
