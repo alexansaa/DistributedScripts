@@ -16,6 +16,7 @@ const primaryKeys = {
   CLIENTE_AUTO: "Placa",
   DETALLE_PROFORMA: "Id",
   DETALLE_FACTURA: "Id",
+
 }
 
 // elements
@@ -30,12 +31,14 @@ const ProveedorLink = document.querySelector('#Proveedor');
 const ProductoLink = document.querySelector('#Producto');
 const FacturaLink = document.querySelector('#Factura');
 const AutosLink = document.querySelector('#Auto');
+const AuditoriaLink = document.querySelector('#Auditoria');
 
 // on click event
 ProveedorLink.addEventListener('click', getTableContent);
 ProductoLink.addEventListener('click', getTableContent);
 FacturaLink.addEventListener('click', getTableContent);
 AutosLink.addEventListener('click', getTableContent);
+AuditoriaLink.addEventListener('click', getTableContent);
 
 // buttons on click event
 const BtnAgregar = document.querySelector('#Agregar');
@@ -76,6 +79,7 @@ async function getTableContent(event) {
   
   const requestURL = url + tableEndpoint + tableName;
   let myTableData = await DoRequest('GET', requestURL);
+  console.log(myTableData)
   myTableData =  myTableData.replace(/'/g, '"');
   const myJsonData = JSON.parse(myTableData);
   let myData = [];
@@ -293,3 +297,7 @@ function checkSubmit(event) {
   document.querySelector('#user').value = '';
   document.querySelector('#password').value = '';
 }
+
+var valorIngresado = document.getElementById("ruc").value;
+console.log(valorIngresado);
+
