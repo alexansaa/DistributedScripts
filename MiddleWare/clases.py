@@ -84,7 +84,7 @@ class Autos:
 #Tablas UIO
 class Cliente:
     def __init__(self, Ruc_Cliente, Nombre, Direccion, Telefono, Email, Ciudad):
-        self.Ruc_Cliente = Id_Auto
+        self.Ruc_Cliente = Ruc_Cliente
         self.Nombre = Nombre
         self.Direccion = Direccion
         self.Telefono = Telefono
@@ -102,12 +102,13 @@ class Cliente:
         }
         return json.dumps(data)
 class Proforma:
-    def __init__(self, Id_Proforma, Ruc_Cliente, Placa, Fecha, Total, Ciudad):
+    def __init__(self, Id_Proforma, Ruc_Cliente, Placa, Fecha, Total, Id_Factura, Ciudad):
         self.Id_Proforma = Id_Proforma
         self.Ruc_Cliente = Ruc_Cliente
         self.Placa = Placa
         self.Fecha = Fecha
         self.Total = Total
+        self.Id_Factura = Id_Factura
         self.Ciudad = Ciudad
 
     def to_json(self):
@@ -119,6 +120,7 @@ class Proforma:
             "Placa": self.Placa,
             "Fecha": myFecha,
             "Total": self.Total,
+            "Id_Factura": self.Id_Factura,
             "Ciudad": self.Ciudad
         }
         return json.dumps(data)

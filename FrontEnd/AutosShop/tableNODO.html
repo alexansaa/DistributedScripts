@@ -11,10 +11,11 @@
             <div class="myLinks">
                 <a id="Proveedor" href="javascript:void(0);">Proveedor</a>
                 <a id="Producto" href="javascript:void(0);">Producto</a>
-                <a id="Cliente" href="javascript:void(0);">Cliente</a>
-                <a id="Factura" href="javascript:void(0);">Factura</a>
+                <a id="Cliente_Uio" href="javascript:void(0);">Cliente_Uio</a>
+                <a id="Factura_Uio" href="javascript:void(0);">Factura_Uio</a>
                 <a id="Auto" href="javascript:void(0);">Auto</a>
-                <a id="Proforma" href="javascript:void(0);">Proforma</a>
+                <a id="Proforma_Uio" href="javascript:void(0);">Proforma_Uio</a>
+                <a id="Auditoria" href="javascript:void(0);">Auditoria</a>
                 <!-- <a id="Facilita" href="javascript:void(0);">Facilita</a>
                 <a id="ClieAuto" href="javascript:void(0);">ClieAuto</a>
                 <a id="DetalleProforma" href="javascript:void(0);">DetalleProforma</a>
@@ -24,19 +25,130 @@
         <section class="flex-container">
             <div id="tools" class="tools">
                 <div>
-                    <button>Agregar</button>
-                    <button>Eliminar</button>
-                    <button>Editar</button>
-                </div>
-                <hr/>
-                <div>
-                    <button>Aceptar</button>
-                    <button>Cancelar</button>
+                    <button id="Agregar">Agregar</button>
+                    <button id="Eliminar">Eliminar</button>
+                    <button id="Editar">Editar</button>
                 </div>
             </div>
             <div class="content" id="content">
-                <h1 class="topheader">Hello Microverse!</h1>
+                <h1 class="topheader">Hello Distributed Data Base!</h1>
                 <p id="myTableContent"></p>
+            </div>
+        </section>
+        <section>
+            <label id="myTable"></label>
+            <label id="myId"></label>
+            <label id="myValue"></label>
+            <div id="inputs"></div>
+        </section>
+        <section>
+            <div id="proveedorInput">
+                <label for="ruc">RUC:</label>
+                <input type="text" id="ruc" name="ruc" required><br><br>
+            
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required><br><br>
+            
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" required><br><br>
+            
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required><br><br>
+            
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br><br>
+            </div>
+            <div id="productoInput">
+                <label for="ruc">Id:</label>
+                <input type="text" id="id" name="id" required><br><br>
+
+                <label for="nombre">Costo:</label>
+                <input type="text" id="costo" name="costo" required><br><br>
+
+                <label for="descripcion">Descripcion:</label>
+                <input type="text" id="descripcion" name="descripcion" required><br><br>
+
+                <label for="marcaProd">Marca:</label>
+                <input type="text" id="marcaProd" name="marcaProd" required><br><br>
+
+                <label for="modeloProd">Modelo:</label>
+                <input type="text" id="modeloProd" name="modeloProd" required><br><br>
+            </div>
+            <div id="clienteInput">
+                <label for="ruc_cliente">Ruc_Cliente:</label>
+                <input type="text" id="ruc_cliente" name="ruc_cliente" required><br><br>
+            
+                <label for="nombreCliente">Nombre:</label>
+                <input type="text" id="nombreCliente" name="nombreCliente" required><br><br>
+            
+                <label for="direccionCliente">Dirección:</label>
+                <input type="text" id="direccionCliente" name="direccionCliente" required><br><br>
+            
+                <label for="telefonoCliente">Teléfono:</label>
+                <input type="text" id="telefonoCliente" name="telefonoCliente" required><br><br>
+            
+                <label for="emailCliente">Email:</label>
+                <input type="email" id="emailCliente" name="emailCliente" required><br><br>
+            
+                <label for="ciudadCliente">Ciudad:</label>
+                <input type="text" id="ciudadCliente" name="ciudadCliente" required><br><br>
+            </div>
+            <div id="facturaInput">
+                <label for="factura">Id_Factura:</label>
+                <input type="text" id="factura" name="factura" required><br><br>
+            
+                <label for="id_proforma">Id_Proforma:</label>
+                <input type="text" id="id_proforma" name="id_proforma" required><br><br>
+            
+                <label for="fecha">Fecha:</label>
+                <input type="text" id="fecha" name="fecha" required><br><br>
+            
+                <label for="total">Total:</label>
+                <input type="text" id="total" name="total" required><br><br>
+            
+                <label for="ciudadFactura">Ciudad:</label>
+                <input type="text" id="ciudadFactura" name="ciudadFactura" required><br><br>
+            </div>
+            <div id="autoInput">
+                <label for="id_auto">Id_Auto:</label>
+                <input type="text" id="id_auto" name="id_auto" required><br><br>
+            
+                <label for="marcaAuto">Marca:</label>
+                <input type="text" id="marcaAuto" name="marcaAuto" required><br><br>
+            
+                <label for="modeloAuto">Modelo:</label>
+                <input type="text" id="modeloAuto" name="modeloAuto" required><br><br>
+            
+                <label for="cilindraje">Cilindraje:</label>
+                <input type="text" id="cilindraje" name="cilindraje" required><br><br>
+            
+                <label for="yearAuto">Year:</label>
+                <input type="email" id="yearAuto" name="yearAuto" required><br><br>
+            
+                <label for="tipoAuto">Tipo:</label>
+                <input type="text" id="tipoAuto" name="tipoAuto" required><br><br>
+            </div>
+            <div id="proformaInput">
+                <label for="id_proforma_p">Id_Proforma:</label>
+                <input type="text" id="id_proforma_p" name="id_proforma_p" required><br><br>
+            
+                <label for="ruc_cliente_p">Ruc_Cliente:</label>
+                <input type="text" id="ruc_cliente_p" name="ruc_cliente_p" required><br><br>
+            
+                <label for="placa">Placa:</label>
+                <input type="text" id="placa" name="placa" required><br><br>
+            
+                <label for="fecha_p">Fecha:</label>
+                <input type="text" id="fecha_p" name="fecha_p" required><br><br>
+            
+                <label for="total_p">Total:</label>
+                <input type="email" id="total_p" name="total_p" required><br><br>
+                
+                <label for="id_factura_p">Id_Factura:</label>
+                <input type="text" id="id_factura_p" name="id_factura_p" required><br><br>
+            
+                <label for="ciudad_p">Ciudad:</label>
+                <input type="text" id="ciudad_p" name="ciudad_p" required><br><br>
             </div>
         </section>
     </body>

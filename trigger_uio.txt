@@ -1,0 +1,74 @@
+CREATE OR REPLACE TRIGGER audit_cliente_uio
+AFTER INSERT OR UPDATE OR DELETE ON cliente_uio
+FOR EACH ROW
+DECLARE 
+ v_op       VARCHAR2(1);
+ v_tabla    VARCHAR2(20);
+ v_anterior VARCHAR2(800);
+ v_nuevo    VARCHAR2(800);
+BEGIN
+ v_tabla :='cliente_uio';
+ IF INSERTING THEN
+  v_op := 'I';
+ ELSIF UPDATING THEN
+  v_op := 'U';
+ ELSIF DELETING THEN
+  v_op := 'D';
+ END IF;
+ v_anterior := :OLD.Ruc_Cliente||'|'||:OLD.Nombre||'|'||:OLD.Direccion||'|'||:OLD.Telefono||'|'||:OLD.Email||'|'||:OLD.Ciudad;
+ v_nuevo := :NEW.Ruc_Cliente||'|'||:NEW.Nombre||'|'||:NEW.Direccion||'|'||:NEW.Telefono||'|'||:NEW.Email||'|'||:NEW.Ciudad;
+ INSERT INTO auditoria(user_name, fecha, tipo_operacion, nombre_table,
+    anterior, nuevo)
+ VALUES (USER, SYSDATE, v_op, v_tabla, v_anterior, v_nuevo);
+END;
+/
+
+CREATE OR REPLACE TRIGGER audit_proforma_uio
+AFTER INSERT OR UPDATE OR DELETE ON proforma_uio
+FOR EACH ROW
+DECLARE 
+ v_op       VARCHAR2(1);
+ v_tabla    VARCHAR2(20);
+ v_anterior VARCHAR2(800);
+ v_nuevo    VARCHAR2(800);
+BEGIN
+ v_tabla :='proforma_uio';
+ IF INSERTING THEN
+  v_op := 'I';
+ ELSIF UPDATING THEN
+  v_op := 'U';
+ ELSIF DELETING THEN
+  v_op := 'D';
+ END IF;
+ v_anterior := :OLD.Id_Proforma||'|'||:OLD.Ruc_Cliente||'|'||:OLD.Placa||'|'||:OLD.Fecha||'|'||:OLD.Total||'|'||:OLD.Id_Factura||'|'||:OLD.Ciudad;
+ v_nuevo := :NEW.Id_Proforma||'|'||:NEW.Ruc_Cliente||'|'||:NEW.Placa||'|'||:NEW.Fecha||'|'||:NEW.Total||'|'||:NEW.Id_Factura||'|'||:NEW.Ciudad;
+ INSERT INTO auditoria(user_name, fecha, tipo_operacion, nombre_table,
+    anterior, nuevo)
+ VALUES (USER, SYSDATE, v_op, v_tabla, v_anterior, v_nuevo);
+END;
+/
+
+CREATE OR REPLACE TRIGGER audit_factura_uio
+AFTER INSERT OR UPDATE OR DELETE ON factura_uio
+FOR EACH ROW
+DECLARE 
+ v_op       VARCHAR2(1);
+ v_tabla    VARCHAR2(20);
+ v_anterior VARCHAR2(800);
+ v_nuevo    VARCHAR2(800);
+BEGIN
+ v_tabla :='factura_uio';
+ IF INSERTING THEN
+  v_op := 'I';
+ ELSIF UPDATING THEN
+  v_op := 'U';
+ ELSIF DELETING THEN
+  v_op := 'D';
+ END IF;
+ v_anterior := :OLD.Id_Factura||'|'||:OLD.Id_Proforma||'|'||:OLD.Fecha||'|'||:OLD.Total||'|'||:OLD.Ciudad;
+ v_nuevo := :NEW.Id_Factura||'|'||:NEW.Id_Proforma||'|'||:NEW.Fecha||'|'||:NEW.Total||'|'||:NEW.Ciudad;
+ INSERT INTO auditoria(user_name, fecha, tipo_operacion, nombre_table,
+    anterior, nuevo)
+ VALUES (USER, SYSDATE, v_op, v_tabla, v_anterior, v_nuevo);
+END;
+/

@@ -1,0 +1,7 @@
+create table auditoria
+(user_name varchar2(20),
+ fecha date,
+ tipo_operacion varchar2(1),
+ nombre_table varchar2(30),
+ anterior varchar2(800),
+ nuevo varchar2(800));

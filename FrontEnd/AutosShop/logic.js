@@ -12,9 +12,11 @@ const primaryKeys = {
   AUTO: "Id_Auto",
   FACILITA: "Id",
   AUTO: "Id_Auto",
-  CLIENTE: "Ruc_Cliente",
+  CLIENTE_UIO: "Ruc_Cliente",
   PROFORMA: "Id_Proforma",
+  PROFORMA_UIO: "Id_Proforma",
   FACTURA: "Id_Factura",
+  FACTURA_UIO: "Id_Factura",
   AUTO: "Id_Auto",
   CLIENTE_AUTO: "Placa",
   DETALLE_PROFORMA: "Id",
@@ -31,14 +33,18 @@ const inputCnt = document.querySelector('#inputs');
 // links
 const ProveedorLink = document.querySelector('#Proveedor');
 const ProductoLink = document.querySelector('#Producto');
-const FacturaLink = document.querySelector('#Factura');
+const ClienteUioLink = document.querySelector('#Cliente_Uio');
+const FacturaUIOLink = document.querySelector('#Factura_Uio');
+const ProformaUIOLink = document.querySelector('#Proforma_Uio');
 const AutosLink = document.querySelector('#Auto');
 const AuditoriaLink = document.querySelector('#Auditoria');
 
 // on click event
 ProveedorLink.addEventListener('click', getTableContent);
 ProductoLink.addEventListener('click', getTableContent);
-FacturaLink.addEventListener('click', getTableContent);
+ClienteUioLink.addEventListener('click', getTableContent)
+FacturaUIOLink.addEventListener('click', getTableContent);
+ProformaUIOLink.addEventListener('click', getTableContent);
 AutosLink.addEventListener('click', getTableContent);
 AuditoriaLink.addEventListener('click', getTableContent);
 
@@ -46,15 +52,11 @@ AuditoriaLink.addEventListener('click', getTableContent);
 const BtnAgregar = document.querySelector('#Agregar');
 const BtnEliminar = document.querySelector('#Eliminar');
 const BtnEditar = document.querySelector('#Editar');
-const BtnAceptar = document.querySelector('#Aceptar');
-const BtnCancelar = document.querySelector('#Cancelar');
 
 // btn on click event
 BtnAgregar.addEventListener('click', handleAgregar);
 BtnEliminar.addEventListener('click', handleEliminar);
 BtnEditar.addEventListener('click', handleEditar);
-//BtnAceptar.addEventListener('click', handleAceptar);
-BtnCancelar.addEventListener('click', handleCancelar);
 
 // input elements
 const ProveedorInput = document.querySelector('#proveedorInput');
@@ -145,7 +147,7 @@ async function createInputElmnts(tableName) {
     ProductoInput.style.display = 'block';
     ProformaInput.style.display = 'none';
     break;
-  case 'FACTURA':
+  case 'FACTURA_UIO':
     ProveedorInput.style.display = 'none';
     AutoInput.style.display = 'none';
     ClienteInput.style.display = 'none';
@@ -160,6 +162,22 @@ async function createInputElmnts(tableName) {
     FacturaInput.style.display = 'none';
     ProductoInput.style.display = 'none';
     ProformaInput.style.display = 'none';
+    break;
+  case 'CLIENTE_UIO':
+    ProveedorInput.style.display = 'none';
+    AutoInput.style.display = 'none';
+    ClienteInput.style.display = 'block';
+    FacturaInput.style.display = 'none';
+    ProductoInput.style.display = 'none';
+    ProformaInput.style.display = 'none';
+    break;
+  case 'PROFORMA_UIO':
+    ProveedorInput.style.display = 'none';
+    AutoInput.style.display = 'none';
+    ClienteInput.style.display = 'none';
+    FacturaInput.style.display = 'none';
+    ProductoInput.style.display = 'none';
+    ProformaInput.style.display = 'block';
     break;
  };
 }
@@ -185,7 +203,7 @@ function handleRow(rowId) {
       document.querySelector('#marcaProd').value = cells[3].textContent;
       document.querySelector('#modeloProd').value = cells[4].textContent;
       break;
-    case 'FACTURA':
+    case 'FACTURA_UIO':
       document.querySelector('#factura').value = cells[0].textContent;
       document.querySelector('#id_proforma').value = cells[1].textContent;
       document.querySelector('#fecha').value = cells[2].textContent;
@@ -199,6 +217,23 @@ function handleRow(rowId) {
       document.querySelector('#cilindraje').value = cells[3].textContent;
       document.querySelector('#yearAuto').value = cells[4].textContent;
       document.querySelector('#tipoAuto').value = cells[5].textContent;
+      break;
+    case 'CLIENTE_UIO':
+      document.querySelector('#ruc_cliente').value = cells[0].textContent;
+      document.querySelector('#nombreCliente').value = cells[1].textContent;
+      document.querySelector('#direccionCliente').value = cells[2].textContent;
+      document.querySelector('#telefonoCliente').value = cells[3].textContent;
+      document.querySelector('#emailCliente').value = cells[4].textContent;
+      document.querySelector('#ciudadCliente').value = cells[5].textContent;
+      break;
+    case 'PROFORMA_UIO':
+      document.querySelector('#id_proforma_p').value = cells[0].textContent;
+      document.querySelector('#ruc_cliente_p').value = cells[1].textContent;
+      document.querySelector('#placa').value = cells[2].textContent;
+      document.querySelector('#fecha_p').value = cells[3].textContent;
+      document.querySelector('#total_p').value = cells[4].textContent;
+      document.querySelector('#ciudad_p').value = cells[6].textContent;
+      document.querySelector('#id_factura_p').value = cells[5].textContent;
       break;
    };
 
@@ -328,12 +363,12 @@ function handleAgregar() {
       myUpdateData.marcaProd = document.querySelector('#marcaProd').value;
       myUpdateData.modeloProd = document.querySelector('#modeloProd').value;
       break;
-    case 'FACTURA':
+    case 'FACTURA_UIO':
       myUpdateData.factura = document.querySelector('#factura').value;
       myUpdateData.id_proforma = document.querySelector('#id_proforma').value;
       myUpdateData.fecha = document.querySelector('#fecha').value;
       myUpdateData.total = document.querySelector('#total').value;
-      myUpdateData.ciudad = document.querySelector('#ciudad').value;
+      myUpdateData.ciudad = document.querySelector('#ciudadFactura').value;
       break;
     case 'AUTO':
       myUpdateData.id_auto = document.querySelector('#id_auto').value;
@@ -343,6 +378,23 @@ function handleAgregar() {
       myUpdateData.yearAuto = document.querySelector('#yearAuto').value;
       myUpdateData.tipoAuto = document.querySelector('#tipoAuto').value;
       break;
+    case 'CLIENTE_UIO':
+      myUpdateData.ruc_cliente = document.querySelector('#ruc_cliente').value;
+      myUpdateData.nombreCliente = document.querySelector('#nombreCliente').value;
+      myUpdateData.direccionCliente = document.querySelector('#direccionCliente').value;
+      myUpdateData.telefonoCliente = document.querySelector('#telefonoCliente').value;
+      myUpdateData.emailCliente = document.querySelector('#emailCliente').value;
+      myUpdateData.ciudadCliente = document.querySelector('#ciudadCliente').value;
+      break;
+    case 'PROFORMA_UIO':
+      myUpdateData.Id_Proforma = document.querySelector('#id_proforma_p').value;
+      myUpdateData.Ruc_Cliente = document.querySelector('#ruc_cliente_p').value;
+      myUpdateData.Placa = document.querySelector('#placa').value;
+      myUpdateData.Fecha = document.querySelector('#fecha_p').value;
+      myUpdateData.Total = document.querySelector('#total_p').value;
+      myUpdateData.Id_Factura = document.querySelector('#id_factura_p').value;
+      myUpdateData.Ciudad = document.querySelector('#ciudad_p').value;
+      break;
   };
 
   const myUrl = url + createEndpoint + myTable.textContent
@@ -351,11 +403,6 @@ function handleAgregar() {
   console.log(MyAns);
 
 }
-
-function handleCancelar() {
-  console.log('cancelar');
-}
-
 
 function checkSubmit(event) {
   event.preventDefault();

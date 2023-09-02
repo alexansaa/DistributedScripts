@@ -3,6 +3,7 @@ from flask_cors import CORS
 import cx_Oracle
 import clases
 import json
+from datetime import datetime
 
 username = 'clieUIO'
 password = 'clieUIO'
@@ -15,10 +16,10 @@ TableIds = {
     "FACILITA": "Id",
     "AUTO": "Id_Auto",
     "CLIENTE": "Ruc_Cliente",
-    "PROFORMA": "Id_Proforma",
-    "FACTURA": "Id_Factura",
+    "PROFORMA_UIO": "Id_Proforma",
+    "FACTURA_UIO": "Id_Factura",
     "AUTO": "Id_Auto",
-    "CLIENTE_AUTO": "Placa",
+    "CLIENTE_AUTO": "Ruc_Cliente",
     "DETALLE_PROFORMA": "Id",
     "DETALLE_FACTURA": "Id",
 }
@@ -66,12 +67,14 @@ def get_table():
             tmpObj = clases.Factura(reg[0], reg[1], reg[2], reg[3], reg[4])
         elif tableName == 'AUTO':
             tmpObj = clases.Autos(reg[0], reg[1], reg[2], reg[3], reg[4], reg[5])
-        elif tableName == 'CLIENTE':
+        elif tableName == 'CLIENTE_UIO':
             tmpObj = clases.Cliente(reg[0], reg[1], reg[2], reg[3], reg[4], reg[5])
         elif tableName == 'CLIENTEAUTO':
             tmpObj = clases.ClienteAuto(reg[0], reg[1], reg[2], reg[3])
         elif tableName == 'DETALLEFACTURA':
             tmpObj = clases.DetalleFactura(reg[0], reg[1], reg[2])
+        elif tableName == 'PROFORMA_UIO':
+            tmpObj = clases.Proforma(reg[0], reg[1], reg[2], reg[3], reg[4], reg[5], reg[6])
 
         myAns.append(tmpObj.to_json())
 
@@ -93,7 +96,7 @@ def create_element(tableName):
 
     for key, value in payload.items():
         print(key + " " + value)
-        if key == 'yearAuto':
+        if key == 'yearAuto' or key == 'fecha' or key == 'Fecha':
             try:
                 # Parse the date string and reformat it
                 date_obj = datetime.strptime(value, '%Y-%m-%d')
@@ -103,7 +106,7 @@ def create_element(tableName):
                 return jsonify({'error': 'Invalid date format'}), 400
         else:
             try:
-                c  = int(value)
+                c  = float(value)
             except ValueError:
                 c = "'" + value + "'"
 
