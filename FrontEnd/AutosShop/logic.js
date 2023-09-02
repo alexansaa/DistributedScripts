@@ -1,7 +1,7 @@
 // Middleware endpoint
 url = 'http://127.0.0.1:5000/';
 tableEndpoint = 'table?tableName=';
-
+deleteEndpoint = 'delete_item?tableName=';
 // primary keys
 const primaryKeys = {
   PROVEEDOR: "Ruc",
@@ -16,7 +16,6 @@ const primaryKeys = {
   CLIENTE_AUTO: "Placa",
   DETALLE_PROFORMA: "Id",
   DETALLE_FACTURA: "Id",
-
 }
 
 // elements
@@ -168,38 +167,35 @@ function handleRow(rowId) {
 
   myValue.textContent = cells[0].textContent;
 
-  switch(tableName) {
+  switch(myTable.textContent) {
     case 'PROVEEDOR':
-      ProveedorInput.style.display = 'block';
-      AutoInput.style.display = 'none';
-      ClienteInput.style.display = 'none';
-      FacturaInput.style.display = 'none';
-      ProductoInput.style.display = 'none';
-      ProformaInput.style.display = 'none';
+      document.querySelector('#ruc').value = cells[0].textContent;
+      document.querySelector('#nombre').value = cells[1].textContent;
+      document.querySelector('#direccion').value = cells[2].textContent;
+      document.querySelector('#telefono').value = cells[3].textContent;
+      document.querySelector('#email').value = cells[4].textContent;
       break;
     case 'PRODUCTO':
-      ProveedorInput.style.display = 'none';
-      AutoInput.style.display = 'none';
-      ClienteInput.style.display = 'none';
-      FacturaInput.style.display = 'none';
-      ProductoInput.style.display = 'block';
-      ProformaInput.style.display = 'none';
+      document.querySelector('#id').value = cells[0].textContent;
+      document.querySelector('#costo').value = cells[1].textContent;
+      document.querySelector('#descripcion').value = cells[2].textContent;
+      document.querySelector('#marcaProd').value = cells[3].textContent;
+      document.querySelector('#modeloProd').value = cells[4].textContent;
       break;
     case 'FACTURA':
-      ProveedorInput.style.display = 'none';
-      AutoInput.style.display = 'none';
-      ClienteInput.style.display = 'none';
-      FacturaInput.style.display = 'block';
-      ProductoInput.style.display = 'none';
-      ProformaInput.style.display = 'none';
+      document.querySelector('#factura').value = cells[0].textContent;
+      document.querySelector('#id_proforma').value = cells[1].textContent;
+      document.querySelector('#fecha').value = cells[2].textContent;
+      document.querySelector('#total').value = cells[3].textContent;
+      document.querySelector('#ciudad').value = cells[4].textContent;
       break;
     case 'AUTO':
-      ProveedorInput.style.display = 'none';
-      AutoInput.style.display = 'block';
-      ClienteInput.style.display = 'none';
-      FacturaInput.style.display = 'none';
-      ProductoInput.style.display = 'none';
-      ProformaInput.style.display = 'none';
+      document.querySelector('#id_auto').value = cells[0].textContent;
+      document.querySelector('#marcaAuto').value = cells[1].textContent;
+      document.querySelector('#modeloAuto').value = cells[2].textContent;
+      document.querySelector('#cilindraje').value = cells[3].textContent;
+      document.querySelector('#yearAuto').value = cells[4].textContent;
+      document.querySelector('#tipoAuto').value = cells[5].textContent;
       break;
    };
 
@@ -260,11 +256,16 @@ async function DoPost(url, payload){
     });
 }
 
-function handleEliminar() {
-  tableName = 
-  itemId
-  console.log(tableName);
-  console.log(itemId);
+async function handleEliminar() {
+  const MyTableName = myTable.textContent;
+  // const MyPrimaryKey = myId.textContent;
+  const MyItemId = myValue.textContent;
+
+  const myUrl = url + deleteEndpoint + MyTableName + '&&item_id=' + MyItemId;
+  console.log(myUrl);
+ 
+  const myAns = await DoRequest('GET',myUrl);
+  console.log(myAns);
 }
 
 function handleAceptar() {

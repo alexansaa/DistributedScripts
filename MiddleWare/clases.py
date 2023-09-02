@@ -15,7 +15,8 @@ class Proveedor:
             "Ruc": self.Ruc,
             "Nombre": self.Nombre,
             "Direccion": self.Direccion,
-            "Telefono": self.Telefono
+            "Telefono": self.Telefono,
+            "Email": self.Email
         }
 
         return json.dumps(data)

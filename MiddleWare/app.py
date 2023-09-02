@@ -117,8 +117,11 @@ def create_element():
 #        print(row)
 #    return "<p>table is ok!</p>"
 
-@app.route('/delete_item/<string:tableName>/<string:item_id>', methods=['DELETE'])
-def delete_element(tableName, item_id):
+@app.route('/delete_item', methods=['GET'])
+def delete_element():
+    tableName = request.args.get('tableName')
+    item_id = request.args.get('item_id')
+
     if tableName is None or item_id is None:
         return jsonify({'error': 'Missing arguments'}), 400
 
@@ -132,18 +135,14 @@ def delete_element(tableName, item_id):
     if isinstance(item_id, str):
         conditionValue = " = '" + item_id + "'"
     else:
-        conditionValue = " = " + item_id
-
-    print('condition: ' + conditionValue)    
+        conditionValue = " = " + item_id 
 
     connection = cx_Oracle.connect(username,password, dsn)
     cursor = connection.cursor()
     sqlStatement = 'DELETE FROM ' + tableName + ' WHERE ' + tmpTableId + conditionValue
     print(sqlStatement)
-#    cursor.execute(sqlStatement)
-    # falta retornar como json
-#    for row in cursor:
-#        print(row)
+    cursor.execute(sqlStatement)
+
     return "<p>delete on table is ok!</p>"
 
 @app.route('/edit/<string:tableName>/<string:item_id>', methods=['POST'])
